@@ -10,7 +10,7 @@ from adapters import ItemView,OrderView,AdminView
 from flask_session import Session
 from cart_part import cart_app
 from order_part import orders_app
-from config_models import MenuElement
+from config_models import MenuElement,SectionElement
 from auth_lib import login_manager
 from auth_part import auth_app
 from mail_lib import mail
@@ -38,6 +38,10 @@ with app.app_context():
     db.create_all()
     menu_elements = MenuElement.query.all()
     app.jinja_env.globals["menu_elements"] = menu_elements
+    app.jinja_env.globals["section1"] = SectionElement.query.filter(SectionElement.section_align == 1).all()
+    app.jinja_env.globals["section2"] = SectionElement.query.filter(SectionElement.section_align == 2).all()
+    app.jinja_env.globals["section3"] = SectionElement.query.filter(SectionElement.section_align == 3).all()
+        
 
 
 login_manager.init_app(app)
@@ -61,6 +65,7 @@ admin = Admin(app, name='Магазин', template_mode='bootstrap3')
 admin.add_view(ItemView(Item, db.session))
 admin.add_view(OrderView(Order, db.session))
 admin.add_view(AdminView(MenuElement, db.session))
+admin.add_view(AdminView(SectionElement, db.session))
 
 if __name__ == "__main__":
     app.run()
