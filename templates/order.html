@@ -1,0 +1,56 @@
+{%extends 'layout.html' %}
+
+{%block title%}Замовлення{%endblock%}
+
+{%block content%}
+<div class="text-center">
+	<h2>Сторінка замовлення</h2>
+	<h3>Сума замовлення {{cart.get_price()}}</h3>
+	<h4>Товарів було придбано {{cart.get_count()}}</h4>
+	<hr>
+
+<hr>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Обрані товари
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+
+
+
+      <div class="accordion-body">
+      	ОБРАНІ ТОВАРИ
+
+      	<ul class="list-group">
+      		{% for item in cart.items %}
+  			<li class="list-group-item">{{item.name}}: Ціна товару: {{item.price}}</li>
+      		{% endfor%}
+		</ul>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+<hr>
+
+<div class="container w-50 shadow rounded p-5 bg-success text-white">
+	<form method="POST">
+	{% for field in form %}
+		<h6>{{field.label}}</h6>
+		<p>{{field(class="form-control",required="required")}}</p>
+	{% endfor %}
+	<button class="btn btn-warning">Оформити замовлення</button>
+	</form>
+</div>
+
+
+
+</div>
+
+{%endblock%}

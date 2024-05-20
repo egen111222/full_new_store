@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Вхід до системи{% endblock %}
+
+
+{% block content %}
+<div class=" container text-center p-5 shadow rounded border w-50">
+	<form method="POST">
+		{%for field in form %}
+			<h6>{{field.label}}</h6>
+			<p>{{field(class="form-control")}}</p>
+		{% endfor %}
+		<button class="btn btn-success">Увійти до системи</button>
+	</form>
+</div>
+
+{% endblock %}

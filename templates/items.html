@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% from 'paginate_component.html' import render_pagination %}
+{%block title%}Товари магазину{%endblock%}
+
+
+{%block content%}
+
+<div class="row row-cols-3">
+	{% for item in items %}
+	<div class="col p-2">
+		<div class="shadow p-5 rounded text-center">
+			<img src="/{{item.img}}" class="img-thumbnail">
+			<h2>{{item.name}}</h2>
+			<h4>Ціна товару {{item.price}} грн.</h4>
+			<a href="{{url_for('items_app.view_item',item_number=item.id)}}"><button class="btn btn-info">Дивитись більше</button></a>
+		</div>
+	</div>
+	{%endfor%}
+</div>
+
+{{render_pagination(items,'items_app.view_items')}}
+
+{%endblock%}

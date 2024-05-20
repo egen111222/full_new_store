@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{%block title %} Корзина {%endblock%}
+
+{%block content%}
+
+	<h3 class="text-center">Ціна товарів у корзині {{cart.get_price()}}</h3>
+
+
+	<div class="mt-5 mb-5 shadow rounded container w-75 p-5 text-center">
+		<h2>Обрані Вами товари</h2>
+		<hr>
+
+		<ul class="list-group">
+			{% for number,item in cart.numerate_items() %}
+			<div class="list-group-item d-flex">
+				<span class="w-75">{{item.name}}:  Ціна товару {{item.price}} грн.</span>
+				<a href="{{url_for('cart_app.remove_item',item_number=number)}}"><button class="btn btn-danger">Вилучити товар</button></a>
+			</div>
+  			
+  			{%endfor%}
+		</ul>
+
+	</div>
+
+	<div class=text-center>
+		<a href="/" class="p-3">До головної сторінки</a>
+		<hr>
+	</div>
+
+
+	{% if cart.items %}
+	<div class="p-2 text-center">
+		<a href="{{url_for('orders_app.create_order')}}"><button class="btn btn-success">Створити замовлення</button></a>
+		<a href="{{url_for('cart_app.clear_cart')}}"><button class="btn btn-danger">Очистити корзину</button></a>
+	</div>
+	{%endif%}
+
+{%endblock%}
